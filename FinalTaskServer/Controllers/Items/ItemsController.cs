@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace FinalTaskServer.Controllers
 {
-    public class HomeController : Controller
+    public class ItemsController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ItemsController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ItemsController(ILogger<ItemsController> logger)
         {
             _logger = logger;
         }
 
         public string Index()
         {
-            return "Hello client";
+            return "[{\"id\":\"1\", \"firstName\":\"Hello2\", \"lastName\":\"Server\"}]";
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

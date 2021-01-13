@@ -26,6 +26,7 @@ namespace FinalTaskServer
             {
                 mvcOtions.EnableEndpointRouting = false;
             });
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,6 +38,8 @@ namespace FinalTaskServer
 
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseMvcWithDefaultRoute();
         }
