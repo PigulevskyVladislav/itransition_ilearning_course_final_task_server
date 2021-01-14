@@ -11,16 +11,16 @@ namespace FinalTaskServer.Controllers
 {
     public class ItemsController : Controller
     {
-        private readonly ILogger<ItemsController> _logger;
+        private ClientContext db;
 
-        public ItemsController(ILogger<ItemsController> logger)
+        public ItemsController(ClientContext db)
         {
-            _logger = logger;
+            this.db = db;
         }
 
         public string Index()
         {
-            return "[{\"id\":\"1\", \"firstName\":\"Hello2\", \"lastName\":\"Server\"}]";
+            return db.Clients.ToList()[0].login;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
