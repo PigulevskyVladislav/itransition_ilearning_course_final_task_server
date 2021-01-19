@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\NewFolder\**" />
+    <Compile Remove="Models\ItemsTag\**" />
     <Content Remove="Controllers\NewFolder\**" />
+    <Content Remove="Models\ItemsTag\**" />
     <EmbeddedResource Remove="Controllers\NewFolder\**" />
+    <EmbeddedResource Remove="Models\ItemsTag\**" />
     <None Remove="Controllers\NewFolder\**" />
+    <None Remove="Models\ItemsTag\**" />
   </ItemGroup>
 
   <ItemGroup>

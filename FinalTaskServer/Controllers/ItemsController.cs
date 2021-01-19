@@ -29,6 +29,12 @@ namespace FinalTaskServer.Controllers
             return Json(db.LastAddedItems.ToList());
         }
 
+        [Route("{tag_id:int}")]
+        public JsonResult GetItemsByTagId(int tag_id)
+        {
+            return Json(db.GetItemsByTagId(tag_id));
+        }
+
         [Route("[action]")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

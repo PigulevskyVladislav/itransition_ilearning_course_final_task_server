@@ -33,6 +33,7 @@ namespace FinalTaskServer
                 options.UseSqlServer(connection));
             services.AddDbContext<TagContext>(options =>
                 options.UseSqlServer(connection));
+            
             services.AddControllersWithViews();
             services.AddControllers(mvcOtions =>
             {
