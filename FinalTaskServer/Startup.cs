@@ -25,7 +25,13 @@ namespace FinalTaskServer
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ItemContext>(options =>
+                options.UseSqlServer(connection));
             services.AddDbContext<ClientContext>(options =>
+                options.UseSqlServer(connection));
+            services.AddDbContext<CollectionContext>(options =>
+                options.UseSqlServer(connection));
+            services.AddDbContext<TagContext>(options =>
                 options.UseSqlServer(connection));
             services.AddControllersWithViews();
             services.AddControllers(mvcOtions =>
