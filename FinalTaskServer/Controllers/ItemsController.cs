@@ -29,10 +29,16 @@ namespace FinalTaskServer.Controllers
             return Json(db.LastAddedItems.ToList());
         }
 
-        [Route("{tag_id:int}")]
+        [Route("bytag/{tag_id:int}")]
         public JsonResult GetItemsByTagId(int tag_id)
         {
             return Json(db.GetItemsByTagId(tag_id));
+        }
+
+        [Route("bycollection/{collection_id:int}")]
+        public JsonResult GetItemsByCollectionId(int collection_id)
+        {
+            return Json(db.GetItemsByCollectionId(collection_id));
         }
 
         [Route("[action]")]

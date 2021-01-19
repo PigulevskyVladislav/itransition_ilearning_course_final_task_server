@@ -28,5 +28,11 @@ namespace FinalTaskServer.Models
                                           .Contains(i.id));
             return items;
         }
+
+        public IQueryable GetItemsByCollectionId(int collection_id)
+        {
+            var items = Items.Where(i => i.collection_id == collection_id);
+            return items;
+        }
     }
 }
