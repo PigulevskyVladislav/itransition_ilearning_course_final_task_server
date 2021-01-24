@@ -41,6 +41,12 @@ namespace FinalTaskServer.Controllers
             return Json(db.GetItemsByCollectionId(collection_id));
         }
 
+        [Route("{item_id:int}")]
+        public JsonResult GetItemById(int item_id)
+        {
+            return Json(db.GetItemWithCollAndOwner(item_id));
+        }
+
         [Route("[action]")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

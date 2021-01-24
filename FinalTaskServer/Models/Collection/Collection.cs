@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace FinalTaskServer.Models
 {
@@ -13,5 +14,8 @@ namespace FinalTaskServer.Models
         public string description { get; set; }
         [Column("picture")]
         public string picture { get; set; }
+        [JsonIgnore]
+        [Column("client_id"), ForeignKey("client_id")]
+        public int user_id { get; set; }
     }
 }

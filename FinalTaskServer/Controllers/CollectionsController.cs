@@ -29,6 +29,18 @@ namespace FinalTaskServer.Controllers
             return Json(db.BiggestCollections.ToList());
         }
 
+        [Route("byuser/{user_id:int}")]
+        public JsonResult GetCollectionByUserId(int user_id)
+        {
+            return Json(db.GetCollectionByUserId(user_id));
+        }
+
+        [Route("{collection_id:int}")]
+        public JsonResult GetCollectionById(int collection_id)
+        {
+            return Json(db.GetCollectionWithOwner(collection_id));
+        }
+
         [Route("[action]")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
