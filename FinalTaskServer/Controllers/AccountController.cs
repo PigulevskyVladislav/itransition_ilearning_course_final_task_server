@@ -28,10 +28,30 @@ namespace FinalTaskServer.Controllers
                                                           u.password == password);
             if (user != null)
             {
-                string role = user.isAdmin ? "AdminMember" : "DefaultMember";
                 return Json(user.id.ToString());
             }
             return Json(null);
+        }
+
+        [Route("[action]/{login:maxlength(25)}/{email:maxlength(45)}/{password:maxlength(64)}")]
+        public bool AddUser(string login, string email, string password)
+        {
+            try
+            {
+                Client newUser = new Client
+                {
+                    login = login,
+                    email = email,
+                    password = password
+                };
+                db.Clients.Add(newUser);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         [Route("[action]")]
