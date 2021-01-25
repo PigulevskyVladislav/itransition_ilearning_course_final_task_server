@@ -1,4 +1,5 @@
 using FinalTaskServer.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +40,12 @@ namespace FinalTaskServer
             {
                 mvcOtions.EnableEndpointRouting = false;
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("AdminMember"));
+            });
             services.AddCors();
         }
 
@@ -51,6 +58,9 @@ namespace FinalTaskServer
 
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseCors(builder => builder.AllowAnyOrigin());
 
