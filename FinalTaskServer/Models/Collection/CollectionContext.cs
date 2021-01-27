@@ -9,6 +9,7 @@ namespace FinalTaskServer.Models
     {
         public DbSet<Client> Users { get; set; }
         public DbSet<Collection> Collections { get; set; }
+        public DbSet<CollectionType> CollectionTypes { get; set; }
         public DbSet<BiggestCollection> BiggestCollections { get; set; }
         public CollectionContext(DbContextOptions<CollectionContext> options)
             : base(options)

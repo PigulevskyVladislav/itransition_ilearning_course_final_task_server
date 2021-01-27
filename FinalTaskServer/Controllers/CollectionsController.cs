@@ -35,6 +35,12 @@ namespace FinalTaskServer.Controllers
             return Json(db.GetCollectionByUserId(user_id));
         }
 
+        [Route("types")]
+        public JsonResult GetCollectionTypes()
+        {
+            return Json(db.CollectionTypes);
+        }
+
         [Route("{collection_id:int}")]
         public JsonResult GetCollectionById(int collection_id)
         {

@@ -8,6 +8,7 @@ namespace FinalTaskServer.Models
         public DbSet<Item> Items { get; set; }
         public DbSet<Client> Users { get; set; }
         public DbSet<ItemsTag> ItemsTags { get; set; }
+        public DbSet<ExtraField> ExtraFields { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<LastAddedItem> LastAddedItems { get; set; }        
         public ItemContext(DbContextOptions<ItemContext> options)
@@ -35,6 +36,11 @@ namespace FinalTaskServer.Models
             var items = Items.Where(i => i.collection_id == collection_id);
             return items;
         }
+        //public IQueryable GetFullItemsByCollectionId(int collection_id)
+        //{
+        //    var items = ExtraFields.Pivot((e,y) => e.value, y.name);
+        //    return items;
+        //}
         public object GetItemWithCollAndOwner(int item_id)
         {
             var item = Items.Where(i => i.id == item_id)
