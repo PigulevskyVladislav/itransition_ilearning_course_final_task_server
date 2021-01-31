@@ -21,6 +21,12 @@ namespace FinalTaskServer.Models
             var collections = Collections.Where(c => c.user_id == user_id);
             return collections;
         }
+        public string GetCollectionExtraFieldName(int collection_id)
+        {
+            Collection collection = Collections.Where(c => c.id == collection_id).SingleOrDefault();
+            string efn = collection.extra_field_name ?? "false";
+            return efn;
+        }
         public object GetCollectionWithOwner(int collection_id)
         {
             var collection = Collections.Where(c => c.id == collection_id)
@@ -30,7 +36,7 @@ namespace FinalTaskServer.Models
                                               (col, user) => new { col.id,
                                                                    col.name,
                                                                    col.description,
-                                                                   col.picture,
+                                                                   image = col.picture,
                                                                    owner_id = col.user_id,
                                                                    owner    = user.login}).SingleOrDefault();
             return collection;

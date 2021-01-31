@@ -42,10 +42,6 @@ namespace FinalTaskServer
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie();
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("AdminMember"));
-            });
             services.AddCors();
         }
 
@@ -62,7 +58,9 @@ namespace FinalTaskServer
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod());
 
             app.UseMvcWithDefaultRoute();
         }

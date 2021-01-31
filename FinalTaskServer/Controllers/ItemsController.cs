@@ -1,5 +1,6 @@
 ﻿using FinalTaskServer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,6 +46,38 @@ namespace FinalTaskServer.Controllers
         public JsonResult GetItemById(int item_id)
         {
             return Json(db.GetItemWithCollAndOwner(item_id));
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public JsonResult PostItem([FromBody]ItemPost itemPost)
+        {
+            try
+            {
+                Item item = itemPost.item;
+                int[] tagIds = itemPost.tagIds;
+                if (item is not null)
+                {
+                    db.Items.Add(item);
+                    db.SaveChanges();
+
+                    if (tagIds.Length != 0)
+                    {
+                        int item_id = item.id;
+                        for (int i = 0; i < tagIds.Length; i++)
+                        {
+                            db.ItemsTags.Add(new ItemsTag() { item_id = item_id,
+                                                              tag_id = tagIds[i]});
+                        }
+                        db.SaveChanges();
+                    }
+                }
+                return Json(item);
+            }
+            catch (SqlException e)
+            {
+                return Json(e.Message);
+            }
         }
 
         [Route("[action]")]

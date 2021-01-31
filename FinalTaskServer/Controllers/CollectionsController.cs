@@ -1,5 +1,7 @@
 ﻿using FinalTaskServer.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,6 +47,30 @@ namespace FinalTaskServer.Controllers
         public JsonResult GetCollectionById(int collection_id)
         {
             return Json(db.GetCollectionWithOwner(collection_id));
+        }
+
+        [Route("extrafieldname/{collection_id:int}")]
+        public string GetCollectionExtraFieldName(int collection_id)
+        {
+            return db.GetCollectionExtraFieldName(collection_id);
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public JsonResult PostCollection([FromBody]Collection collection)
+        {
+            try
+            {
+                if (collection is not null)
+                {
+                    db.Collections.Add(collection);
+                    db.SaveChanges();
+                }
+                return Json(collection);
+            } catch(SqlException e)
+            {
+                return Json(e.Message);
+            }
         }
 
         [Route("[action]")]

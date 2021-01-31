@@ -28,7 +28,7 @@ namespace FinalTaskServer.Controllers
                                                           u.password == password);
             if (user != null)
             {
-                return Json(user.id.ToString());
+                return Json("{\"user_id\":" + user.id + ",\"isAdmin\":" + user.isAdmin.ToString().ToLowerInvariant() + "}");
             }
             return Json(null);
         }
