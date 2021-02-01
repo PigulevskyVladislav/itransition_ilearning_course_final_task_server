@@ -30,6 +30,12 @@ namespace FinalTaskServer.Controllers
             return Json(db.LastAddedItems.ToList());
         }
 
+        [Route("search/{query:maxlength(45)}")]
+        public JsonResult GetItemsByQuery(string query)
+        {
+            return Json(db.GetItemsByQuery(query));
+        }
+
         [Route("bytag/{tag_id:int}")]
         public JsonResult GetItemsByTagId(int tag_id)
         {

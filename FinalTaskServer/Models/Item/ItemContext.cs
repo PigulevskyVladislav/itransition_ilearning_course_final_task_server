@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace FinalTaskServer.Models
 {
     public class ItemContext : DbContext
     {
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Client> Users { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<ItemsTag> ItemsTags { get; set; }
         public DbSet<ExtraField> ExtraFields { get; set; }
         public DbSet<Collection> Collections { get; set; }
@@ -36,11 +39,12 @@ namespace FinalTaskServer.Models
             var items = Items.Where(i => i.collection_id == collection_id);
             return items;
         }
-        //public IQueryable GetFullItemsByCollectionId(int collection_id)
-        //{
-        //    var items = ExtraFields.Pivot((e,y) => e.value, y.name);
-        //    return items;
-        //}
+        public IQueryable GetItemsByQuery(string query)
+        {
+            var items = Items.Where(i => EF.Functions.Like(i.name, "%" + query + "%"));
+
+            return items;
+        }
         public object GetItemWithCollAndOwner(int item_id)
         {
             var item = Items.Where(i => i.id == item_id)
@@ -49,6 +53,7 @@ namespace FinalTaskServer.Models
                                   c => c.id,
                                   (item, col) => new { item.id,
                                                        item.name,
+                                                       item.extra_field,
                                                        c_id   = col.id,
                                                        c_name = col.name,
                                                        u_id   = col.user_id })
@@ -61,7 +66,8 @@ namespace FinalTaskServer.Models
                                                        collection_id   = icol.c_id,
                                                        collection_name = icol.c_name,
                                                        owner_id        = icol.u_id,
-                                                       owner           = user.login}).SingleOrDefault();
+                                                       owner           = user.login,
+                                                       icol.extra_field}).SingleOrDefault();
             return item;
         }
     }
