@@ -22,12 +22,5 @@ namespace FinalTaskServer.Controllers
         {
             return Json(db.Tags.ToList());
         }
-
-        [Route("[action]")]
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
